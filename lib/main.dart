@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'transaction.dart';
 
+import 'assets/constants.dart' as constants;
+
 void main() {
   runApp(const MyApp());
 }
@@ -25,14 +27,6 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({super.key, required this.title});
 
   final String title;
-  final List<Transaction> transaction = [
-    Transaction(
-        id: '1', title: 'New transaction', amount: 22.58, date: DateTime.now()),
-    Transaction(
-        id: '2', title: 'Mobile phone', amount: 10.5, date: DateTime.now()),
-    Transaction(
-        id: '3', title: 'Key repairer', amount: 5.3, date: DateTime.now()),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +48,14 @@ class MyHomePage extends StatelessWidget {
                 child: const Text('week chart'),
               )),
           // ),
-          const Card(
-            child: Text('list of transactions'),
+          Column(
+            children: [
+              ...constants.transactions.map((transaction) {
+                return Card(
+                  child: Text(transaction.title),
+                );
+              })
+            ],
           )
         ],
       ),
