@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'transaction.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,15 +16,23 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   final String title;
+  final List<Transaction> transaction = [
+    Transaction(
+        id: '1', title: 'New transaction', amount: 22.58, date: DateTime.now()),
+    Transaction(
+        id: '2', title: 'Mobile phone', amount: 10.5, date: DateTime.now()),
+    Transaction(
+        id: '3', title: 'Key repairer', amount: 5.3, date: DateTime.now()),
+  ];
 
   @override
   Widget build(BuildContext context) {
