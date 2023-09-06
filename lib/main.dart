@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'transaction.dart';
 
 import 'assets/constants.dart' as constants;
@@ -72,7 +74,7 @@ class MyHomePage extends StatelessWidget {
                           transaction.title),
                       Text(
                           style: const TextStyle(color: Colors.grey),
-                          transaction.date.toString())
+                          DateFormat.yMMMMEEEEd().format(transaction.date))
                     ],
                   )
                 ]));
