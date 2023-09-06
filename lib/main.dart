@@ -54,13 +54,25 @@ class MyHomePage extends StatelessWidget {
                 return Card(
                     child: Row(children: [
                   Container(
-                      padding: const EdgeInsets.all(10),
-                      color: Colors.black12,
-                      child: Text(transaction.amount.toString())),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 18),
+                      child: Text(
+                        '\$${transaction.amount}',
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple),
+                      )),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(transaction.title),
-                      Text(transaction.date.toString())
+                      Text(
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                          transaction.title),
+                      Text(
+                          style: const TextStyle(color: Colors.grey),
+                          transaction.date.toString())
                     ],
                   )
                 ]));
