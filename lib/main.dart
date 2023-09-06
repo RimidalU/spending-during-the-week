@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:spending_during_the_week/widgets/transactions_list.dart';
 
 import 'assets/constants.dart' as constants;
 
@@ -79,47 +80,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            children: [
-              ...constants.transactions.map((transaction) {
-                return Card(
-                  elevation: 5,
-                  child: Row(children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 18,
-                      ),
-                      child: Text(
-                        '\$${transaction.amount}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          transaction.title,
-                        ),
-                        Text(
-                          style: const TextStyle(color: Colors.grey),
-                          DateFormat.yMMMMEEEEd().format(transaction.date),
-                        )
-                      ],
-                    )
-                  ]),
-                );
-              })
-            ],
-          )
+          const TransactionsList(),
         ],
       ),
     );
