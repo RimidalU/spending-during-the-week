@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:spending_during_the_week/widgets/transaction_creation_form.dart';
-import 'package:spending_during_the_week/widgets/transactions_list.dart';
 
-import 'assets/constants.dart' as constants;
+import './widgets/transaction_creation_form.dart';
+import './widgets/transactions_chart.dart';
+import './widgets/transactions_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,17 +19,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
 
   final String title;
-  // final titleController = TextEditingController();
-  // final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +38,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Card(
-            elevation: 5,
-            color: Colors.deepPurpleAccent,
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              width: double.infinity,
-              child: const Text('week chart'),
-            ),
-          ),
+          const TransactionsChart(),
           TransactionCreationForm(),
           const TransactionsList(),
         ],
