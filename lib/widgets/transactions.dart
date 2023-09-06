@@ -17,11 +17,23 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   final List<Transaction> transactions = constants.transactions;
 
+  void _addNewTransaction(String title, double amount) {
+    final newTransaction = Transaction(
+      id: '3',
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+    );
+    setState(() {
+      transactions.add(newTransaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TransactionCreationForm(),
+        TransactionCreationForm(addNewTransaction: _addNewTransaction),
         TransactionsList(
           transactions: transactions,
         ),
