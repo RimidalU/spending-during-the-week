@@ -47,10 +47,36 @@ class MyHomePage extends StatelessWidget {
               child: const Text('week chart'),
             ),
           ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                    ),
+                  ),
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Amount',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Add Transaction'),
+                  )
+                ],
+              ),
+            ),
+          ),
           Column(
             children: [
               ...constants.transactions.map((transaction) {
                 return Card(
+                  elevation: 5,
                   child: Row(children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
