@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './widgets/transaction_creation_form.dart';
 import './widgets/transactions_chart.dart';
-import './widgets/transactions_list.dart';
+import '.././widgets/transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,11 +33,10 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Spending during the week.'),
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const TransactionsChart(),
-          TransactionCreationForm(),
-          const TransactionsList(),
+          TransactionsChart(),
+          Transactions(),
         ],
       ),
     );
