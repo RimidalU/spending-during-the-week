@@ -24,6 +24,7 @@ class TransactionCreationForm extends StatelessWidget {
               ),
             ),
             TextField(
+              keyboardType: TextInputType.number,
               controller: amountController,
               decoration: const InputDecoration(
                 labelText: 'Amount',
