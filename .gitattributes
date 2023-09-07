@@ -2,6 +2,7 @@
 *.cc linguist-generated
 *.cpp linguist-generated
 *.cmake linguist-generated
+*.txt linguist-generated
 
 # Detect
 *.dart linguist-detectable
