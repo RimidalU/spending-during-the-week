@@ -33,11 +33,13 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Spending during the week.'),
       ),
-      body: const Column(
-        children: [
-          TransactionsChart(),
-          Transactions(),
-        ],
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+            TransactionsChart(),
+            Transactions(),
+          ],
+        ),
       ),
     );
   }
