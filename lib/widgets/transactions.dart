@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '.././models/transaction.dart';
 
@@ -15,11 +16,13 @@ class Transactions extends StatefulWidget {
 }
 
 class _TransactionsState extends State<Transactions> {
+  var uuid = const Uuid();
+
   final List<Transaction> transactions = constants.transactions;
 
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
-      id: '3',
+      id: uuid.v4(),
       title: title,
       amount: amount,
       date: DateTime.now(),
