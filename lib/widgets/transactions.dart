@@ -12,7 +12,7 @@ class Transactions extends StatefulWidget {
   const Transactions({super.key});
 
   @override
-  _TransactionsState createState() => _TransactionsState();
+  State<StatefulWidget> createState() => _TransactionsState();
 }
 
 class _TransactionsState extends State<Transactions> {
