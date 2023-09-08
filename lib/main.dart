@@ -3,8 +3,8 @@ import 'package:uuid/uuid.dart';
 
 import '.././models/transaction.dart';
 
-import '.././widgets/transaction_creation_form.dart';
-import '.././widgets/transactions_list.dart';
+import './widgets/transaction_creation_form.dart';
+import './widgets/transactions_list.dart';
 import './widgets/transactions_chart.dart';
 
 import '../assets/constants.dart' as constants;
