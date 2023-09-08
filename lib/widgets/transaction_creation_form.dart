@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TransactionCreationForm extends StatelessWidget {
+class TransactionCreationForm extends StatefulWidget {
   final Function addNewTransaction;
 
-  TransactionCreationForm({super.key, required this.addNewTransaction});
+  const TransactionCreationForm({super.key, required this.addNewTransaction});
 
+  @override
+  State<TransactionCreationForm> createState() =>
+      _TransactionCreationFormState();
+}
+
+class _TransactionCreationFormState extends State<TransactionCreationForm> {
   final titleController = TextEditingController();
+
   final amountController = TextEditingController();
 
   @override
@@ -17,10 +24,11 @@ class TransactionCreationForm extends StatelessWidget {
       if (title.isEmpty || amount <= 0) {
         return;
       }
-      addNewTransaction(
+      widget.addNewTransaction(
         title,
         amount,
       );
+      Navigator.of(context).pop();
     }
 
     return Card(
