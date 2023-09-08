@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
+import '.././models/transaction.dart';
+
+import '.././widgets/transaction_creation_form.dart';
+import '.././widgets/transactions_list.dart';
 import './widgets/transactions_chart.dart';
-import '.././widgets/transactions.dart';
+
+import '../assets/constants.dart' as constants;
 
 void main() {
   runApp(const MyApp());
@@ -23,8 +29,37 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var uuid = const Uuid();
+
+  final List<Transaction> transactions = constants.transactions;
+
+  void _addNewTransaction(String title, double amount) {
+    final newTransaction = Transaction(
+      id: uuid.v4(),
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+    );
+    setState(() {
+      transactions.add(newTransaction);
+    });
+  }
+
+  void _handleAddTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return TransactionCreationForm(addNewTransaction: _addNewTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +67,30 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Spending during the week.'),
+        actions: [
+          IconButton(
+            onPressed: () => _handleAddTransaction(context),
+            icon: const Icon(
+              Icons.add,
+            ),
+          )
+        ],
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            TransactionsChart(),
-            Transactions(),
+            const TransactionsChart(),
+            TransactionsList(
+              transactions: transactions,
+            ),
+            // Transactions(),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _handleAddTransaction(context),
+        child: const Icon(Icons.add),
       ),
     );
   }
