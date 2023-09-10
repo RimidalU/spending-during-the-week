@@ -36,6 +36,12 @@ class TransactionsChart extends StatelessWidget {
     });
   }
 
+  double get totalSpending {
+    return groupedInDayTransactionsValue.fold(0.0, (sum, element) {
+      return sum + (element['amount'] as double);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,7 +55,9 @@ class TransactionsChart extends StatelessWidget {
             return ChartBar(
               label: data['day'].toString(),
               spendingAmount: data['amount'] as double,
-              spendingPercentOfTotal: data['amount'] as double,
+              spendingPercentOfTotal: totalSpending == 0.0
+                  ? 0.0
+                  : (data['amount'] as double) / totalSpending,
             );
           }).toList(),
         ),
