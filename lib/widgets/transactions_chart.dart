@@ -52,12 +52,15 @@ class TransactionsChart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: groupedInDayTransactionsValue.map((data) {
-            return ChartBar(
-              label: data['day'].toString(),
-              spendingAmount: data['amount'] as double,
-              spendingPercentOfTotal: totalSpending == 0.0
-                  ? 0.0
-                  : (data['amount'] as double) / totalSpending,
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: data['day'].toString(),
+                spendingAmount: data['amount'] as double,
+                spendingPercentOfTotal: totalSpending == 0.0
+                    ? 0.0
+                    : (data['amount'] as double) / totalSpending,
+              ),
             );
           }).toList(),
         ),
