@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+const dayInWeek = 7;
 
 class TransactionsChart extends StatelessWidget {
   const TransactionsChart({super.key});
+
+  List<Map<String, Object>> get groupedInDayTransactionsValue {
+    return List.generate(dayInWeek, (index) {
+      final weekDay = DateTime.now().subtract(
+        Duration(days: index),
+      );
+      return {
+        'day': DateFormat.E(weekDay),
+        'amount': 9.99,
+      };
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
