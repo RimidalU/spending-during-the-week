@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import './../models/transaction.dart';
+
+import './chart_bar.dart';
 
 const dayInWeek = 7;
 
@@ -36,12 +40,19 @@ class TransactionsChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      color: Colors.deepPurpleAccent,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: Row(
-        children: groupedInDayTransactionsValue.map((data) {
-          return Text('${data['day']}: ${data['amount']}');
-        }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: groupedInDayTransactionsValue.map((data) {
+            return ChartBar(
+              label: data['day'].toString(),
+              spendingAmount: data['amount'] as double,
+              spendingPercentOfTotal: data['amount'] as double,
+            );
+          }).toList(),
+        ),
       ),
     );
   }
