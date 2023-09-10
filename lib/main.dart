@@ -40,7 +40,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var uuid = const Uuid();
 
-  final List<Transaction> transactions = constants.transactions;
+  final List<Transaction> _transactions = constants.transactions;
+
+  List<Transaction> get _recentTransactions {
+    return _transactions
+        .where(
+            (transaction) => transaction.date.isAfter(DateTime.now().subtract(
+                  const Duration(days: 7),
+                )))
+        .toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
@@ -50,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
     );
     setState(() {
-      transactions.add(newTransaction);
+      _transactions.add(newTransaction);
     });
   }
 
@@ -84,9 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TransactionsChart(),
+            TransactionsChart(
+              recentTransactions: _transactions,
+            ),
             TransactionsList(
-              transactions: transactions,
+              transactions: _recentTransactions,
             ),
             // Transactions(),
           ],
