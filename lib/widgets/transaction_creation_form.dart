@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionCreationForm extends StatefulWidget {
   final Function addNewTransaction;
@@ -15,22 +16,42 @@ class _TransactionCreationFormState extends State<TransactionCreationForm> {
 
   final amountController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    void submitData() {
-      final title = titleController.text;
-      final amount = double.parse(amountController.text);
+  DateTime? selectedDate;
 
-      if (title.isEmpty || amount <= 0) {
+  void submitData() {
+    final title = titleController.text;
+    final amount = double.parse(amountController.text);
+    final date = selectedDate ?? DateTime.now();
+
+    if (title.isEmpty || amount <= 0) {
+      return;
+    }
+    widget.addNewTransaction(
+      title,
+      amount,
+      date,
+    );
+    Navigator.of(context).pop();
+  }
+
+  void presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
         return;
       }
-      widget.addNewTransaction(
-        title,
-        amount,
-      );
-      Navigator.of(context).pop();
-    }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: Container(
@@ -57,14 +78,20 @@ class _TransactionCreationFormState extends State<TransactionCreationForm> {
               height: 70,
               child: Row(
                 children: [
-                  const Text('No Date Chosen!'),
+                  Expanded(
+                    child: Text(
+                      selectedDate == null
+                          ? 'No Date Chosen!'
+                          : 'Picked Date: ${DateFormat.yMEd().format(selectedDate!)}',
+                    ),
+                  ),
                   TextButton(
+                    onPressed: presentDatePicker,
                     child: const Text(
                       'Choose Date',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {},
                   ),
                 ],
               ),
