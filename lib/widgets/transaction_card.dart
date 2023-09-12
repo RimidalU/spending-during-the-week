@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionCard extends StatelessWidget {
+  final Function removeTransaction;
+
   final double transactionAmount;
   final String transactionTitle;
   final DateTime transactionDate;
+  final String transactionId;
 
-  const TransactionCard(
-      {super.key,
-      required this.transactionAmount,
-      required this.transactionDate,
-      required this.transactionTitle});
+  const TransactionCard({
+    super.key,
+    required this.transactionAmount,
+    required this.transactionDate,
+    required this.transactionTitle,
+    required this.transactionId,
+    required this.removeTransaction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +40,12 @@ class TransactionCard extends StatelessWidget {
         subtitle: Text(
           DateFormat.yMMMMEEEEd().format(transactionDate),
         ),
+        trailing: IconButton(
+            color: Theme.of(context).colorScheme.error,
+            onPressed: () => removeTransaction(transactionId),
+            icon: const Icon(
+              Icons.delete,
+            )),
       ),
     );
   }

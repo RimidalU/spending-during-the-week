@@ -75,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _handleRemoveTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TransactionsList(
               transactions: _recentTransactions,
+              removeTransaction: _handleRemoveTransaction,
             ),
             // Transactions(),
           ],
