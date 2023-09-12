@@ -53,7 +53,23 @@ class _TransactionCreationFormState extends State<TransactionCreationForm> {
                 labelText: 'Amount',
               ),
             ),
-            TextButton(
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('No Date Chosen!'),
+                  TextButton(
+                    child: const Text(
+                      'Choose Date',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton(
               onPressed: submitData,
               child: const Text('Add Transaction'),
             )
