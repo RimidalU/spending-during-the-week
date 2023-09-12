@@ -17,7 +17,7 @@ class TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
+      height: 515,
       child: transactions.isEmpty
           ? Center(
               child: Image.asset(
