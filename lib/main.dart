@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
 import '.././models/transaction.dart';
@@ -10,6 +11,10 @@ import './widgets/transactions_chart.dart';
 import '../assets/constants.dart' as constants;
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  // );
   runApp(const MyApp());
 }
 
