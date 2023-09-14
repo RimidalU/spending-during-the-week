@@ -84,30 +84,44 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      title: const Text('Spending during the week.'),
+      actions: [
+        IconButton(
+          onPressed: () => _handleAddTransaction(context),
+          icon: const Icon(
+            Icons.add,
+          ),
+        )
+      ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Spending during the week.'),
-        actions: [
-          IconButton(
-            onPressed: () => _handleAddTransaction(context),
-            icon: const Icon(
-              Icons.add,
-            ),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TransactionsChart(
-              recentTransactions: _transactions,
+            SizedBox(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) * // status bar height
+                  0.25,
+              child: TransactionsChart(
+                recentTransactions: _transactions,
+              ),
             ),
-            TransactionsList(
-              transactions: _recentTransactions,
-              removeTransaction: _handleRemoveTransaction,
+            SizedBox(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.75,
+              child: TransactionsList(
+                transactions: _recentTransactions,
+                removeTransaction: _handleRemoveTransaction,
+              ),
+              // Transactions(),),
             ),
-            // Transactions(),
           ],
         ),
       ),
