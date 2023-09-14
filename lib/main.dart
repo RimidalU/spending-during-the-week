@@ -108,25 +108,31 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Show Chart',
-                  style: TextStyle(),
-                ),
-                Switch(
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    }),
-                const Text(
-                  'Show Transactions',
-                  style: TextStyle(),
-                )
-              ],
+            SizedBox(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Show Chart',
+                    style: TextStyle(),
+                  ),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _showChart = val;
+                        });
+                      }),
+                  const Text(
+                    'Show Transactions',
+                    style: TextStyle(),
+                  )
+                ],
+              ),
             ),
             _showChart
                 ? SizedBox(
