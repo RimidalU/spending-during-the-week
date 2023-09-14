@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var uuid = const Uuid();
 
   final List<Transaction> _transactions = constants.transactions;
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions
@@ -107,26 +108,49 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) * // status bar height
-                  0.25,
-              child: TransactionsChart(
-                recentTransactions: _transactions,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Show Chart',
+                  style: TextStyle(),
+                ),
+                Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    }),
+                const Text(
+                  'Show Transactions',
+                  style: TextStyle(),
+                )
+              ],
             ),
-            SizedBox(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.75,
-              child: TransactionsList(
-                transactions: _recentTransactions,
-                removeTransaction: _handleRemoveTransaction,
-              ),
-              // Transactions(),),
-            ),
+            _showChart
+                ? SizedBox(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context)
+                                .padding
+                                .top) * // status bar height
+                        0.25,
+                    child: TransactionsChart(
+                      recentTransactions: _transactions,
+                    ),
+                  )
+                : SizedBox(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.75,
+                    child: TransactionsList(
+                      transactions: _recentTransactions,
+                      removeTransaction: _handleRemoveTransaction,
+                    ),
+                    // Transactions(),),
+                  ),
           ],
         ),
       ),
