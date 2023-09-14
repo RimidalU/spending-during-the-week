@@ -38,7 +38,7 @@ class _TransactionCreationFormState extends State<TransactionCreationForm> {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 7)),
+      firstDate: DateTime.now().subtract(const Duration(days: 6)),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
       if (pickedDate == null) {
