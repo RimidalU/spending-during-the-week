@@ -90,6 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title: const Text('Spending during the week.'),
@@ -103,60 +106,76 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    final transactionsList = SizedBox(
+      height: (MediaQuery.of(context).size.height -
+              appBar.preferredSize.height -
+              MediaQuery.of(context).padding.top) *
+          0.75,
+      child: TransactionsList(
+        transactions: _recentTransactions,
+        removeTransaction: _handleRemoveTransaction,
+      ),
+      // Transactions(),),
+    );
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Show Chart',
-                    style: TextStyle(),
-                  ),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _showChart = val;
-                        });
-                      }),
-                  const Text(
-                    'Show Transactions',
-                    style: TextStyle(),
-                  )
-                ],
+            if (isLandScape)
+              SizedBox(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Show Chart',
+                      style: TextStyle(),
+                    ),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (val) {
+                          setState(() {
+                            _showChart = val;
+                          });
+                        }),
+                    const Text(
+                      'Show Transactions',
+                      style: TextStyle(),
+                    )
+                  ],
+                ),
               ),
-            ),
-            _showChart
-                ? SizedBox(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context)
-                                .padding
-                                .top) * // status bar height
-                        0.25,
-                    child: TransactionsChart(
-                      recentTransactions: _transactions,
-                    ),
-                  )
-                : SizedBox(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.75,
-                    child: TransactionsList(
-                      transactions: _recentTransactions,
-                      removeTransaction: _handleRemoveTransaction,
-                    ),
-                    // Transactions(),),
-                  ),
+            if (!isLandScape)
+              SizedBox(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context)
+                            .padding
+                            .top) * // status bar height
+                    0.25,
+                child: TransactionsChart(
+                  recentTransactions: _transactions,
+                ),
+              ),
+            if (!isLandScape) transactionsList,
+            if (isLandScape)
+              _showChart
+                  ? SizedBox(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.75 // status bar height
+                      ,
+                      child: TransactionsChart(
+                        recentTransactions: _transactions,
+                      ),
+                    )
+                  : transactionsList,
           ],
         ),
       ),
