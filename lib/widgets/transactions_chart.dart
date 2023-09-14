@@ -44,7 +44,7 @@ class TransactionsChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
