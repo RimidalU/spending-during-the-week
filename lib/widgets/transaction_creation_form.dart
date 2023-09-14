@@ -52,55 +52,62 @@ class _TransactionCreationFormState extends State<TransactionCreationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: titleController,
-              onSubmitted: (_) => submitData(),
-              decoration: const InputDecoration(
-                labelText: 'Title',
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: titleController,
+                onSubmitted: (_) => submitData(),
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller: amountController,
-              onSubmitted: (_) => submitData(),
-              decoration: const InputDecoration(
-                labelText: 'Amount',
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: amountController,
+                onSubmitted: (_) => submitData(),
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
               ),
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      selectedDate == null
-                          ? 'No Date Chosen!'
-                          : 'Picked Date: ${DateFormat.yMEd().format(selectedDate!)}',
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        selectedDate == null
+                            ? 'No Date Chosen!'
+                            : 'Picked Date: ${DateFormat.yMEd().format(selectedDate!)}',
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: presentDatePicker,
-                    child: const Text(
-                      'Choose Date',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    TextButton(
+                      onPressed: presentDatePicker,
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: submitData,
-              child: const Text('Add Transaction'),
-            )
-          ],
+              ElevatedButton(
+                onPressed: submitData,
+                child: const Text('Add Transaction'),
+              )
+            ],
+          ),
         ),
       ),
     );
