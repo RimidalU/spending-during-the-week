@@ -90,8 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final isLandScape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -107,9 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final transactionsList = SizedBox(
-      height: (MediaQuery.of(context).size.height -
+      height: (mediaQuery.size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              mediaQuery.padding.top) *
           0.75,
       child: TransactionsList(
         transactions: _recentTransactions,
@@ -125,9 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             if (isLandScape)
               SizedBox(
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        mediaQuery.padding.top) *
                     0.2,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -152,11 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (!isLandScape)
               SizedBox(
-                height: (MediaQuery.of(context).size.height -
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context)
-                            .padding
-                            .top) * // status bar height
+                        mediaQuery.padding.top) * // status bar height
                     0.25,
                 child: TransactionsChart(
                   recentTransactions: _transactions,
@@ -166,9 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandScape)
               _showChart
                   ? SizedBox(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.75 // status bar height
                       ,
                       child: TransactionsChart(
