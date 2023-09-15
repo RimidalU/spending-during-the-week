@@ -156,7 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
         transactions: _recentTransactions,
         removeTransaction: _handleRemoveTransaction,
       ),
-      // Transactions(),),
     );
 
     return Scaffold(
