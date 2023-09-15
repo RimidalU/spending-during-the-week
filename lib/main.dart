@@ -95,6 +95,39 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(
+      {required double bodyHeight, required Widget transactionsList}) {
+    return [
+      ContentSwitch(
+        heightWidget: bodyHeight * 0.2,
+        handleSwitch: _handleSwitch,
+        showChart: _showChart,
+      ),
+      _showChart
+          ? SizedBox(
+              height: bodyHeight * 0.75 // status bar height
+              ,
+              child: TransactionsChart(
+                recentTransactions: _transactions,
+              ),
+            )
+          : transactionsList,
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+      {required double bodyHeight, required Widget transactionsList}) {
+    return [
+      SizedBox(
+        height: bodyHeight * 0.25, // status bar height
+        child: TransactionsChart(
+          recentTransactions: _transactions,
+        ),
+      ),
+      transactionsList
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -135,35 +168,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             if (isLandScape)
-              ContentSwitch(
-                heightWidget: bodyHeight * 0.2,
-                handleSwitch: _handleSwitch,
-                showChart: _showChart,
+              ..._buildLandscapeContent(
+                bodyHeight: bodyHeight,
+                transactionsList: transactionsList,
               ),
             if (!isLandScape)
-              SizedBox(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) * // status bar height
-                    0.25,
-                child: TransactionsChart(
-                  recentTransactions: _transactions,
-                ),
+              ..._buildPortraitContent(
+                bodyHeight: bodyHeight,
+                transactionsList: transactionsList,
               ),
-            if (!isLandScape) transactionsList,
-            if (isLandScape)
-              _showChart
-                  ? SizedBox(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.75 // status bar height
-                      ,
-                      child: TransactionsChart(
-                        recentTransactions: _transactions,
-                      ),
-                    )
-                  : transactionsList,
           ],
         ),
       ),
