@@ -151,10 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
         mediaQuery.padding.top;
 
     final transactionsList = SizedBox(
-      height: (mediaQuery.size.height -
-              appBar.preferredSize.height -
-              mediaQuery.padding.top) *
-          0.75,
+      height: bodyHeight * 0.75,
       child: TransactionsList(
         transactions: _recentTransactions,
         removeTransaction: _handleRemoveTransaction,
