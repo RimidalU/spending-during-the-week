@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spending_during_the_week/widgets/content_switch.dart';
 // import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
@@ -88,6 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _handleSwitch(bool val) {
+    setState(() {
+      _showChart = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -105,6 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
+
+    final bodyHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
 
     final transactionsList = SizedBox(
       height: (mediaQuery.size.height -
@@ -124,31 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             if (isLandScape)
-              SizedBox(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Show Transactions',
-                      style: TextStyle(),
-                    ),
-                    Switch(
-                        value: _showChart,
-                        onChanged: (val) {
-                          setState(() {
-                            _showChart = val;
-                          });
-                        }),
-                    const Text(
-                      'Show Chart',
-                      style: TextStyle(),
-                    )
-                  ],
-                ),
+              ContentSwitch(
+                heightWidget: bodyHeight * 0.2,
+                handleSwitch: _handleSwitch,
+                showChart: _showChart,
               ),
             if (!isLandScape)
               SizedBox(
