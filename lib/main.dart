@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Show Chart',
+                      'Show Transactions',
                       style: TextStyle(),
                     ),
                     Switch(
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         }),
                     const Text(
-                      'Show Transactions',
+                      'Show Chart',
                       style: TextStyle(),
                     )
                   ],
