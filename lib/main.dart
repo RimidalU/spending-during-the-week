@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:spending_during_the_week/widgets/content_switch.dart';
 // import 'package:flutter/services.dart';
@@ -43,7 +45,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   var uuid = const Uuid();
 
   final List<Transaction> _transactions = constants.transactions;
@@ -126,6 +128,36 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       transactionsList
     ];
+  }
+
+  int _generateRandomInteger(int max) {
+    final random = Random();
+    return random.nextInt(max);
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _addNewTransaction(
+      'Auto adding transaction',
+      _generateRandomInteger(30).toDouble() + 1,
+      DateTime.now().subtract(
+        Duration(
+          days: _generateRandomInteger(7),
+        ),
+      ),
+    );
+  }
+
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
